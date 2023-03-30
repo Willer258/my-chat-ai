@@ -5,7 +5,7 @@ import user from '../assets/user.svg'
 const form: any = document.querySelector('form');
 const chatContainer: any = document.querySelector('#chat_container');
 
-let loadInterval: number | undefined;
+let loadInterval: string | number | NodeJS.Timer | undefined ;
 
 function loader(element: { textContent: string; }) {
   element.textContent = "Hum laisse moi reflechir";
@@ -78,7 +78,7 @@ const handleSubmit = async (e: any) => {
 
 
 
-  const response  = await fetch('http://localhost:5000', {
+  const response  = await fetch(`https://myai-w5k9.onrender.com`, {
     method:'POST',
     headers:{
       'Content-Type': 'application/json'
@@ -92,8 +92,6 @@ const handleSubmit = async (e: any) => {
   messageDiv.innerHTML ='';
   if(response.ok){
     const data = await response.json();
-    console.log('data');
-    console.log(data);
     const parsedData = data.bot.trim();
   
     typeText(messageDiv, parsedData);
